@@ -1,3 +1,19 @@
 header {
     text-align: center;
 }
+
+#game-container {
+    width: 400px;
+    height: 400px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.game-cell {
+    width: 131.2px;
+    height: 131.5px;
+    border: 1px solid black;
+}
