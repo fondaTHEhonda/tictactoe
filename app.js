@@ -21,3 +21,7 @@ const displayController = (() => {
         newDiv.classList.add('game-cell');
     }
 })();
+
+const controlGame = (() => {
+
+});
