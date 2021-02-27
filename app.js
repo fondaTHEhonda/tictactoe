@@ -37,23 +37,25 @@ const gameBoard = (() => {
     const controlGame = function(e) {
         if(e.target.classList.contains("game-cell")) {
             if(e.target.textContent === "")
-                        if(player1.turn === true && board.length < 9) {
+                        if(player1.turn === true) {
                             e.target.textContent = "X";
                             e.target.style.backgroundColor = "#F03A47"
-                            _checkWinner(e);
                             board.push(e.target.textContent);
+                            _checkWinner(e);
+                            _checkDraw();
                             console.log(board);
                             player1.turn = false;
                             player2.turn = true;
-                        } else if(player2.turn === true && board.length < 9) {
+                        } else if(player2.turn === true) {
                             e.target.textContent = "O";
                             e.target.style.backgroundColor = "#276FBF"
-                            _checkWinner(e);
                             board.push(e.target.textContent);
+                            _checkWinner(e);
+                            _checkDraw();
                             console.log(board);
                             player2.turn = false;
                             player1.turn = true;           
-                        }
+                        } 
             }
     };
 
@@ -79,6 +81,17 @@ const gameBoard = (() => {
                     } 
                 }
             }
+        }
+    }
+
+    const _checkDraw = function() {
+        if(!_checkWinner && board.length >= 9) {
+            winner.textContent = "It's a draw!";
+            winner.style.backgroundColor = "#00916E"
+            winner.style.visibility = "visible";
+            window.removeEventListener('click', gameBoard.controlGame);
+            reset.style.visibility = "visible"
+            reset.addEventListener('click', playAgain);
         }
     }
 
