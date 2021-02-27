@@ -39,8 +39,6 @@ const gameBoard = (() => {
             if(e.target.textContent === "")
                         if(player1.turn === true && board.length < 9) {
                             e.target.textContent = "X";
-                            e.target.style.textAlign = "center";
-                            e.target.style.verticalAlign = "center";
                             e.target.style.backgroundColor = "#F03A47"
                             _checkWinner(e);
                             board.push(e.target.textContent);
