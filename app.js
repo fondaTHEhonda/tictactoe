@@ -111,8 +111,8 @@ const Player = (name, mark, turn) => {
     return {name, mark, turn, getMark}
 };
 
-const player1 = Player("Conor", "X", true);
-const player2 = Player("Leah", "O", false);
+const player1 = Player(prompt("What is Player 1's name?"), "X", true);
+const player2 = Player(prompt("What is Player 2's name?"), "O", false);
 
 const p1NameDisplay = document.getElementById("player-one-name");
 const p1MarkDisplay = document.getElementById("player-one-mark");

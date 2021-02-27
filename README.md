@@ -10,9 +10,9 @@
 
     - Think carefully about where each bit of logic should reside. Each little piece of functionality should be able to fit in the game, player or gameboard objects.. but take care to put them in “logical” places. Spending a little time brainstorming here can make your life much easier later!
 
-5. Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
+5. Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie. COMPLETE
 
-6. Clean up the interface to allow players to put in their names, include a button to start/restart the game and add a display element that congratulates the winning player!
+6. Clean up the interface to allow players to put in their names, include a button to start/restart the game and add a display element that congratulates the winning player! COMPLETE
 
 7. Optional - If you’re feeling ambitious create an AI so that a player can play against the computer!
     - Start by just getting the computer to make a random legal move.
