@@ -27,6 +27,16 @@ const gameBoard = (() => {
         [2, 5, 8],
     ]; 
 
+    const checkWinner = function(playerMark) {
+        return winningBoards.some(function(threeInARow) {
+            return threeInARow.InARow.every(function(square) {
+                return board[square] === playerMark;
+            })
+        })
+    }
+
+    let xWin = checkWinner("X");
+    ley oWin = checkWinner("O")
 
     const controlGame = function(e) {
         if(e.target.classList.contains("game-cell")) {
@@ -36,6 +46,7 @@ const gameBoard = (() => {
                     board.push(e.target.textContent);
                     player1Moves.push(parseInt(e.target.id));
                     console.log(player1Moves)
+                    console.log(board)
                     player1.turn = false;
                     player2.turn = true;
                 } else if(player2.turn === true) {
@@ -43,13 +54,14 @@ const gameBoard = (() => {
                     board.push(e.target.textContent);
                     player2Moves.push(parseInt(e.target.id));
                     console.log(player2Moves)
+                    console.log(board)
                     player2.turn = false;
                     player1.turn = true;
                 }
         }
     };
 
-    return { controlGame, checkWinner}
+    return {controlGame}
 })();
 
 window.addEventListener('click', gameBoard.controlGame)
