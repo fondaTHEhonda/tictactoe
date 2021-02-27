@@ -6,15 +6,25 @@
     </head>
     <header>
         <h1>Tic Tac Toe</h1>
-        <h2>Made by Fonda</h2>
-        <h3>The Odin Project</h3>
+        <h2>Made by Fonda for The Odin Project</h2>
     </header>
     <body>
+        <div id="winner-display">
+            <p id="winner">Wow, you know how to inspect. There isn't a winner yet, this is just a placeholder.</p>
+        </div>
         <div id="game-container">
         </div>
-        <div id="winner-display">
-            <p id="winner"></p>
+        <div id="player-info">
+            <div id="player-one">
+                <p id="player-one-name"></p>
+                <p id="player-one-mark"></p>
+            </div>
             <button type="button" id="reset">Play Again?</button>
+            <div id="player-two">
+                <p id="player-two-name"></p>
+                <p id="player-two-mark"></p>
+            </div>
+            
         </div>
         <script src="app.js"></script>
     </body>

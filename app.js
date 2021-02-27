@@ -15,6 +15,7 @@ const displayController = (() => {
 
 //Gameboard module
 const gameBoard = (() => {
+    let board = [];
     const winner = document.getElementById("winner");
     const reset = document.getElementById('reset');
     const winningBoards = [
@@ -36,17 +37,25 @@ const gameBoard = (() => {
     const controlGame = function(e) {
         if(e.target.classList.contains("game-cell")) {
             if(e.target.textContent === "")
-                        if(player1.turn === true) {
+                        if(player1.turn === true && board.length < 9) {
                             e.target.textContent = "X";
+                            e.target.style.textAlign = "center";
+                            e.target.style.verticalAlign = "center";
+                            e.target.style.backgroundColor = "#FA7921"
                             _checkWinner(e);
+                            board.push(e.target.textContent);
+                            console.log(board);
                             player1.turn = false;
                             player2.turn = true;
-                        } else if(player2.turn === true) {
+                        } else if(player2.turn === true && board.length < 9) {
                             e.target.textContent = "O";
-                            player2.turn = false;
-                            player1.turn = true;
+                            e.target.style.backgroundColor = "#36151E"
                             _checkWinner(e);
-                }
+                            board.push(e.target.textContent);
+                            console.log(board);
+                            player2.turn = false;
+                            player1.turn = true;           
+                        }
             }
     };
 
@@ -57,15 +66,19 @@ const gameBoard = (() => {
                     winningBoards[i][j] = e.target.textContent
                         if(winningBoards[i][0] === "X" && winningBoards[i][1] === "X" && winningBoards[i][2] === "X") {
                             winner.textContent = `${player1.name} wins!`;
+                            winner.style.backgroundColor = "#FA7921";
+                            winner.style.visibility = "visible";
                             window.removeEventListener('click', gameBoard.controlGame);
-                            reset.style.display = "block"
+                            reset.style.visibility = "visible"
                             reset.addEventListener('click', playAgain);
                     } else if(winningBoards[i][0] === "O" && winningBoards[i][1] === "O" && winningBoards[i][2] === "O") {
                         winner.textContent = `${player2.name} wins!`;
+                        winner.style.backgroundColor = "#36151E";
+                        winner.style.visibility = "visible";
                         window.removeEventListener('click', gameBoard.controlGame);
-                        reset.style.display = "block"
+                        reset.style.visibility = "visible"
                         reset.addEventListener('click', playAgain);
-                    }
+                    } 
                 }
             }
         }
@@ -90,4 +103,13 @@ const Player = (name, mark, turn) => {
 const player1 = Player("Conor", "X", true);
 const player2 = Player("Leah", "O", false);
 
+const p1NameDisplay = document.getElementById("player-one-name");
+const p1MarkDisplay = document.getElementById("player-one-mark");
+p1NameDisplay.textContent = `Name: ${player1.name}`;
+p1MarkDisplay.textContent = `Mark: ${player1.mark}`;
 
+const p2NameDisplay = document.getElementById("player-two-name");
+const p2MarkDisplay = document.getElementById("player-two-mark");
+
+p2NameDisplay.textContent = `Name: ${player2.name}`;
+p2MarkDisplay.textContent = `Mark: ${player2.mark}`;
