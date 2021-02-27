@@ -15,9 +15,8 @@ const displayController = (() => {
 
 //Gameboard module
 const gameBoard = (() => {
-    const board = [];
-    const player1Moves = [];
-    const player2Moves = [];
+    const winner = document.getElementById("winner");
+    const reset = document.getElementById('reset');
     const winningBoards = [
         [0, 1, 2],
         [3, 4, 5],
@@ -25,22 +24,12 @@ const gameBoard = (() => {
         [0, 3, 6],
         [1, 4, 7],
         [2, 5, 8],
+        [2, 4, 6],
+        [0, 4, 8]
     ]; 
 
-    const checkWinner = function (e) {
-        for(let i = 0; i < winningBoards.length; i++) {
-            for(let j = 0; j < winningBoards[i].length; j++) {
-                if(winningBoards[i][j] === parseInt(e.target.id)) {
-                    winningBoards[i][j] = e.target.textContent
-                    console.log(winningBoards);
-                        if(winningBoards[i][0] === "X" && winningBoards[i][1] === "X" && winningBoards[i][2] === "X") {
-                        alert(`${player1.name} wins!`);
-                    } else if(winningBoards[i][0] === "O" && winningBoards[i][1] === "O" && winningBoards[i][2] === "O") {
-                        alert(`${player2.name} wins!`);
-                    }
-                }
-            }
-        }
+    const playAgain = function() {
+        window.location.reload();
     }
 
 
@@ -49,30 +38,44 @@ const gameBoard = (() => {
             if(e.target.textContent === "")
                         if(player1.turn === true) {
                             e.target.textContent = "X";
-                            board.push(e.target.textContent);
-                            player1Moves.push(parseInt(e.target.id));
-                            console.log(player1Moves)
-                            console.log(board)
+                            _checkWinner(e);
                             player1.turn = false;
                             player2.turn = true;
-                            
                         } else if(player2.turn === true) {
                             e.target.textContent = "O";
-                            board.push(e.target.textContent);
-                            player2Moves.push(parseInt(e.target.id));
-                            console.log(player2Moves)
-                            console.log(board)
                             player2.turn = false;
                             player1.turn = true;
+                            _checkWinner(e);
                 }
             }
     };
 
-    return {controlGame, checkWinner}
+    const _checkWinner = function (e) {
+        for(let i = 0; i < winningBoards.length; i++) {
+            for(let j = 0; j < winningBoards[i].length; j++) {
+                if(winningBoards[i][j] === parseInt(e.target.id)) {
+                    winningBoards[i][j] = e.target.textContent
+                        if(winningBoards[i][0] === "X" && winningBoards[i][1] === "X" && winningBoards[i][2] === "X") {
+                            winner.textContent = `${player1.name} wins!`;
+                            window.removeEventListener('click', gameBoard.controlGame);
+                            reset.style.display = "block"
+                            reset.addEventListener('click', playAgain);
+                    } else if(winningBoards[i][0] === "O" && winningBoards[i][1] === "O" && winningBoards[i][2] === "O") {
+                        winner.textContent = `${player2.name} wins!`;
+                        window.removeEventListener('click', gameBoard.controlGame);
+                        reset.style.display = "block"
+                        reset.addEventListener('click', playAgain);
+                    }
+                }
+            }
+        }
+    }
+
+    return {controlGame}
 })();
 
 window.addEventListener('click', gameBoard.controlGame)
-window.addEventListener('click', gameBoard.checkWinner)
+
 
 
 //Player Factory

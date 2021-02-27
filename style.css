@@ -17,3 +17,7 @@ header {
     height: 131.5px;
     border: 1px solid black;
 }
+
+#reset {
+    display: none;
+}
