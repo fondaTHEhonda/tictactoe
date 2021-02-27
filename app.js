@@ -41,7 +41,7 @@ const gameBoard = (() => {
                             e.target.textContent = "X";
                             e.target.style.textAlign = "center";
                             e.target.style.verticalAlign = "center";
-                            e.target.style.backgroundColor = "#FA7921"
+                            e.target.style.backgroundColor = "#F03A47"
                             _checkWinner(e);
                             board.push(e.target.textContent);
                             console.log(board);
@@ -49,7 +49,7 @@ const gameBoard = (() => {
                             player2.turn = true;
                         } else if(player2.turn === true && board.length < 9) {
                             e.target.textContent = "O";
-                            e.target.style.backgroundColor = "#36151E"
+                            e.target.style.backgroundColor = "#276FBF"
                             _checkWinner(e);
                             board.push(e.target.textContent);
                             console.log(board);
@@ -66,14 +66,14 @@ const gameBoard = (() => {
                     winningBoards[i][j] = e.target.textContent
                         if(winningBoards[i][0] === "X" && winningBoards[i][1] === "X" && winningBoards[i][2] === "X") {
                             winner.textContent = `${player1.name} wins!`;
-                            winner.style.backgroundColor = "#FA7921";
+                            winner.style.backgroundColor = "#F03A47";
                             winner.style.visibility = "visible";
                             window.removeEventListener('click', gameBoard.controlGame);
                             reset.style.visibility = "visible"
                             reset.addEventListener('click', playAgain);
                     } else if(winningBoards[i][0] === "O" && winningBoards[i][1] === "O" && winningBoards[i][2] === "O") {
                         winner.textContent = `${player2.name} wins!`;
-                        winner.style.backgroundColor = "#36151E";
+                        winner.style.backgroundColor = "#276FBF";
                         winner.style.visibility = "visible";
                         window.removeEventListener('click', gameBoard.controlGame);
                         reset.style.visibility = "visible"
