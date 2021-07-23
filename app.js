@@ -18,7 +18,7 @@ const gameBoard = (() => {
     let board = [];
     const winner = document.getElementById("winner");
     const reset = document.getElementById('reset');
-    const winningBoards = [
+    let winningBoards = [
         [0, 1, 2],
         [3, 4, 5],
         [6, 7, 8],
@@ -29,8 +29,33 @@ const gameBoard = (() => {
         [0, 4, 8]
     ]; 
 
+
+
+
+
     const playAgain = function() {
-        window.location.reload();
+        const divs = document.querySelectorAll('.game-cell')
+        const divArray = [...divs]
+        divArray.forEach(i=> {
+            i.innerHTML = ''
+            i.style.backgroundColor = '#FFFFFF'
+        })
+        board = []
+        winner.textContent = ''
+        winner.style.visibility = 'hidden'
+        window.addEventListener('click', gameBoard.controlGame)
+        reset.style.visibility = 'hidden'
+        winningBoards = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [2, 4, 6],
+            [0, 4, 8]
+        ];
+        console.log(board, 'clicked')
     }
 
 
@@ -52,7 +77,6 @@ const gameBoard = (() => {
                             board.push(e.target.textContent);
                             _checkWinner(e);
                             _checkDraw();
-                            console.log(board);
                             player2.turn = false;
                             player1.turn = true;           
                         } 
@@ -66,6 +90,8 @@ const gameBoard = (() => {
                     winningBoards[i][j] = e.target.textContent
                         if(winningBoards[i][0] === "X" && winningBoards[i][1] === "X" && winningBoards[i][2] === "X") {
                             winner.textContent = `${player1.name} wins!`;
+                            player1.score ++
+                            p1ScoreDisplay.textContent = `Score: ${player1.score}`;
                             winner.style.backgroundColor = "#F03A47";
                             winner.style.visibility = "visible";
                             window.removeEventListener('click', gameBoard.controlGame);
@@ -73,6 +99,8 @@ const gameBoard = (() => {
                             reset.addEventListener('click', playAgain);
                     } else if(winningBoards[i][0] === "O" && winningBoards[i][1] === "O" && winningBoards[i][2] === "O") {
                         winner.textContent = `${player2.name} wins!`;
+                        player2.score ++
+                        p2ScoreDisplay.textContent = `Score: ${player2.score}`;
                         winner.style.backgroundColor = "#276FBF";
                         winner.style.visibility = "visible";
                         window.removeEventListener('click', gameBoard.controlGame);
@@ -103,24 +131,29 @@ window.addEventListener('click', gameBoard.controlGame)
 
 
 //Player Factory
-const Player = (name, mark, turn) => {
+const Player = (name, mark, turn, score) => {
     const getName = () => name;
     const getMark = () => mark
     let isTurn = () => turn;
+    const getScore = () => score
 
-    return {name, mark, turn, getMark}
+    return {name, mark, turn, getMark, score}
 };
 
-const player1 = Player(prompt("What is Player 1's name?"), "X", true);
-const player2 = Player(prompt("What is Player 2's name?"), "O", false);
+const player1 = Player(prompt("What is Player 1's name?"), "X", true, 0);
+const player2 = Player(prompt("What is Player 2's name?"), "O", false, 0);
 
 const p1NameDisplay = document.getElementById("player-one-name");
 const p1MarkDisplay = document.getElementById("player-one-mark");
+const p1ScoreDisplay = document.getElementById("player-one-score");
 p1NameDisplay.textContent = `Name: ${player1.name}`;
 p1MarkDisplay.textContent = `Mark: ${player1.mark}`;
+p1ScoreDisplay.textContent = `Score: ${player1.score}`;
 
 const p2NameDisplay = document.getElementById("player-two-name");
 const p2MarkDisplay = document.getElementById("player-two-mark");
+const p2ScoreDisplay = document.getElementById("player-two-score");
 
 p2NameDisplay.textContent = `Name: ${player2.name}`;
 p2MarkDisplay.textContent = `Mark: ${player2.mark}`;
+p2ScoreDisplay.textContent = `Score: ${player2.score}`;
